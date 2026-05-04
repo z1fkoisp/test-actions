@@ -1,20 +1,21 @@
 name: release to quay.io
-on:
+'on':
   push:
-    tags: [v*]
-
+    tags:
+    - v*
 jobs:
   push-image:
     name: push image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.17']
+        go:
+        - '1.17'
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: validate tag
-        id: validate_tag
-        run: ./validate-tag.sh
-      - name: output
-        run: echo "The valid tag was ${{ steps.validate_tag.outputs.tag }}"
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: validate tag
+      id: validate_tag
+      run: ./validate-tag.sh
+    - name: output
+      run: echo "The valid tag was ${{ steps.validate_tag.outputs.tag }}"
